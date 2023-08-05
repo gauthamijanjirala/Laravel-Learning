@@ -23,7 +23,7 @@
         <div class="row justify-content-center ">
             <div class="col-sm-8">
                 <div class="card mt-3 p-3">
-                    <form method="POST">
+                    <form method="POST" action="/products/store">
                         @csrf
                         <div class="form-group">
                             <label>Name</label>
@@ -31,8 +31,13 @@
                         </div>
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="form-controller" name="description"></textares>
+                            <textarea class="form-control" rows="4" name="description"></textarea>
                         </div>
+                        <div clas="form-group">
+                            <label> Image </label>
+                            <input type="file" name="image" clas="form-control"/>
+                        </div>
+                        <button type="submit" class="btn btn-dark mt-3">Submit</button>
                     </form>
                 </div>
             </div>
