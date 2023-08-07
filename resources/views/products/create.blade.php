@@ -23,7 +23,7 @@
         <div class="row justify-content-center  pt-5">
             <div class="col-sm-8">
                 <div class="card mt-3 p-3">
-                    <form method="POST" action="/products/store" entype="multipart/ form-data">
+                    <form method="POST" action="/products/store" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label>Name</label>
