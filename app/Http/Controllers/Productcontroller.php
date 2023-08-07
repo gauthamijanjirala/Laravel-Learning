@@ -8,15 +8,18 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     public function index(){
-        // $products = Product::get();   as you wish
+        $products = Product::get(); //  as you wish
+        
+        // return view('products.index', compact('products'));
         return view('products.index', [
-            'products' =>Product::get()
+            'products' => $products
         ]);
     }
     public function create(){
         return view('products.create');
     }       
     public function store (Request $request){
+        // dd($request->all());
         // Validate data 
         $request->validate([
             'name' => 'required',
