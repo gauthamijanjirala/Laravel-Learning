@@ -19,8 +19,6 @@ class ProductController extends Controller
         $imageName = time().'.'.$request->image->extension();
         $request->image->move(public_path('products'), $imageName);
 
-        dd($imageName);
-
         $product = new Product;
         $product->image = $imageName;
         $product->name = $request->name;
