@@ -25,7 +25,7 @@
         </div>
     </div>
 
-        <table class="table table-hover mt-3 ">
+        <table class="table table-hover mt-4 m-5  ">
         <thead>
             <tr>
                 <th>Sr.no</th>
@@ -41,10 +41,10 @@
                 <td>{{  $product->name  }}</td>
                 <td>
                 <!-- <img src="{{ asset('products').'/'.$product->image }}" class="rounded-circle" width="30" height="30"/>  -->
-                    <img src="products/{{ $product->image }}" class="rounded-circle" width="30" height="30"/> 
+                    <img src="products/{{ $product->image }}" class="rounded-circle" width="40" height="40"/> 
                 </td>
                 <td>
-                    Edit
+                    <a href="products/{{ $product->id}}/edit" class="btn btn-dark btn-sm">Edit</a>
                 </td>
             </tr>
             @endforeach
