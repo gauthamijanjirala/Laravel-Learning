@@ -59,16 +59,14 @@ class ProductController extends Controller
             // Upload Image
             $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('products'),$imageName);
+            $product->image = $imageName;
         }
 
-
-        $product = new Product;
-        $product->image = $imageName;
         $product->name = $request->name;
         $product->description = $request->description;
 
         $product->save();
-        return back()->withSuccess('Product Created !!!');
+        return back()->withSuccess('Product Updated !!!');
             }
     
 }
