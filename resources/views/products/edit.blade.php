@@ -8,7 +8,7 @@
                     <h3 class="text-muted">
                         Product Edit {{ $product->id}}
                     </h3>
-                    <form method="POST" action="/products/{{ $product->id }}/update"enctype="multipart/form-data">
+                    <form method="POST" action="/products/{{ $product->id }}/update" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group">

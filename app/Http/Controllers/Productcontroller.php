@@ -4,32 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-
+use File;
 class ProductController extends Controller
 {
-    public function index(){
-        $products = Product::get(); 
-        
+    public function index()
+    {
+        $products = Product::get();
+
         // return view('products.index', compact('products'));
         return view('products.index', [
             'products' => $products
         ]);
     }
-    public function create(){
+    public function create()
+    {
         return view('products.create');
-    }       
-    public function store (Request $request){
+    }
+    public function store(Request $request)
+    {
         // dd($request->all());
         // Validate data 
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|numeric',
             'description' => 'required',
             'image' => 'required|mimes:jpeg,jpg,png,gif|max:100000',
         ]);
 
         // Upload Image
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('products'),$imageName);
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('products'), $imageName);
 
         $product = new Product;
         $product->image = $imageName;
@@ -39,13 +42,15 @@ class ProductController extends Controller
         $product->save();
         return back()->withSuccess('Product Created !!!');
     }
-    public function edit($id){
-        $product = Product::where('id',$id)->first();
+    public function edit($id)
+    {
+        $product = Product::where('id', $id)->first();
 
-        return view('products.edit',['product' => $product]);
+        return view('products.edit', ['product' => $product]);
     }
-    
-    public function update(Request $request, $id){
+
+    public function update(Request $request, $id)
+    {
         // Validate data 
         $request->validate([
             'name' => 'required',
@@ -53,34 +58,39 @@ class ProductController extends Controller
             'image' => 'nullable|mimes:jpeg,jpg,png,gif|max:100000',
         ]);
 
-        $product = Product::where('id',$id)->first();
+        $product = Product::where('id', $id)->first();
 
-        if(isset($request->image)){
+        if (isset($request->image)) {
             // Upload Image
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('products'),$imageName);
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('products'), $imageName);
             $product->image = $imageName;
         }
 
-            $product->name = $request->name;
-            $product->description = $request->description;
+        $product->name = $request->name;
+        $product->description = $request->description;
 
-            $product->save();
-            return back()->withSuccess('Product Updated !!!');
+        $product->save();
+        return back()->withSuccess('Product Updated !!!');
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::where('id', $id)->first();
+        
+        $image_path = public_path('products/'.$product->image);
+        if(File::exists($image_path)) {
+            File::delete($image_path);
         }
-        
-        public function destroy($id){
-            $product = Product::where('id',$id)->first();
-            $product->delete();
-            return back()->withSuccess('Product Deleted !!!');
-        
+
+        $product->delete();
+        return back()->withSuccess('Product Deleted !!!');
     }
-        public function show($id){
-            $product = Product::where('id',$id)->first();
-            return view('products.show',['product'=>$product]);
-        
+    public function show($id)
+    {
+        $product = Product::where('id', $id)->first();
+        return view('products.show', ['product' => $product]);
+
     }
-    
+
 }
-    
-    
