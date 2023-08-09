@@ -62,11 +62,25 @@ class ProductController extends Controller
             $product->image = $imageName;
         }
 
-        $product->name = $request->name;
-        $product->description = $request->description;
+            $product->name = $request->name;
+            $product->description = $request->description;
 
-        $product->save();
-        return back()->withSuccess('Product Updated !!!');
-            }
+            $product->save();
+            return back()->withSuccess('Product Updated !!!');
+        }
+        
+        public function destroy($id){
+            $product = Product::where('id',$id)->first();
+            $product->delete();
+            return back()->withSuccess('Product Deleted !!!');
+        
+    }
+        public function show($id){
+            $product = Product::where('id',$id)->first();
+            return view('products.show',['product'=>$product]);
+        
+    }
     
 }
+    
+    
