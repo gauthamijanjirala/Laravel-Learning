@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use File;
+
 class ProductController extends Controller
 {
     public function index()
@@ -25,8 +26,8 @@ class ProductController extends Controller
         // dd($request->all());
         // Validate data 
         $request->validate([
-            'name' => 'required|numeric',
-            'description' => 'required',
+            'name' => 'required',
+            'description' => 'required', 
             'image' => 'required|mimes:jpeg,jpg,png,gif|max:100000',
         ]);
 
@@ -77,9 +78,9 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::where('id', $id)->first();
-        
-        $image_path = public_path('products/'.$product->image);
-        if(File::exists($image_path)) {
+
+        $image_path = public_path('products/' . $product->image);
+        if (File::exists($image_path)) {
             File::delete($image_path);
         }
 
