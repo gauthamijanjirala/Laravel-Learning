@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use File;
 
+
 class ProductController extends Controller
+// fornt page...........
 {
     public function index()
     {
@@ -17,10 +19,13 @@ class ProductController extends Controller
             'products' => $products
         ]);
     }
+// new to next page..........
     public function create()
     {
         return view('products.create');
     }
+
+//  store to page....
     public function store(Request $request)
     {
         // dd($request->all());
@@ -43,6 +48,8 @@ class ProductController extends Controller
         $product->save();
         return back()->withSuccess('Product Created !!!');
     }
+
+    // edit the page......
     public function edit($id)
     {
         $product = Product::where('id', $id)->first();
@@ -50,6 +57,7 @@ class ProductController extends Controller
         return view('products.edit', ['product' => $product]);
     }
 
+    // update to page.............
     public function update(Request $request, $id)
     {
         // Validate data 
@@ -73,8 +81,11 @@ class ProductController extends Controller
 
         $product->save();
         return back()->withSuccess('Product Updated !!!');
+        return redirect('/');
     }
 
+
+    // delete to page
     public function destroy($id)
     {
         $product = Product::where('id', $id)->first();
@@ -87,6 +98,14 @@ class ProductController extends Controller
         $product->delete();
         return back()->withSuccess('Product Deleted !!!');
     }
+    public function imageDelete() {
+        $image_name = '$image';
+        $image_path = public_path('products/'.$image_name);
+        if(File::exists($image_path)) {
+            File::delete($image_path);
+        }
+    }
+// show the listing front
     public function show($id)
     {
         $product = Product::where('id', $id)->first();
