@@ -81,7 +81,6 @@ class ProductController extends Controller
 
         $product->save();
         return back()->withSuccess('Product Updated !!!');
-        return redirect('/');
     }
 
 
