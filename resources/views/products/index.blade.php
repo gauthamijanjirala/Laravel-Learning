@@ -28,7 +28,7 @@
                 </td>
                 <td>
                     <a href="products/{{ $product->id}}/edit" class="btn btn-dark btn-sm">Edit</a>
-                    <form method="POST" class="d-inline" action="products/{{ $product->id }}/delete ">
+                    <!-- <form method="POST" class="d-inline" action="products/{{ $product->id }}/delete "> -->
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm ">Delete </button>
